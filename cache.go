@@ -1,7 +1,6 @@
 package cache
 
 import (
-	"fmt"
 	"sync"
 	"time"
 )
@@ -34,7 +33,7 @@ func (c *Cache) Get(key string) (string, bool) {
 	c.mu.RLock()
 	defer c.mu.RUnlock()
 	if item, ok := c.data[key]; ok {
-		item.expired = item.deadline.Before(time.Now())	
+		item.expired = item.deadline.Before(time.Now())
 		if !item.expired || item.deadline.IsZero() {
 			return item.Value, true
 		}
